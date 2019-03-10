@@ -5,7 +5,7 @@ require_relative('../guest')
 require_relative('../room')
 require_relative('../song')
 
-class TestRoom < Minitest::Test
+class TestKaraokeBar < Minitest::Test
 
 def setup
 
