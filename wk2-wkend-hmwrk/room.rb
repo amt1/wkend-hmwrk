@@ -33,4 +33,8 @@ def get_song_list
   return @songs
 end
 
+def is_full
+  return (@guests.count() >= @capacity) ? true : false
+end
+
 end # end class
