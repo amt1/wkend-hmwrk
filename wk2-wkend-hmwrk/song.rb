@@ -2,7 +2,7 @@ class Song
 
 attr_reader :title, :artist, :index_number
 # this is faster than getter methods
-def initialize(title, artist, pic_filename, index_number)
+def initialize(index_number, title, artist, pic_filename)
   @title = title
   @artist = artist
   @pic_filename = pic_filename

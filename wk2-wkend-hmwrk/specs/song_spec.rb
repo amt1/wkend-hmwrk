@@ -8,7 +8,7 @@ require_relative('../song')
 class TestSong < Minitest::Test
 
 def setup
-  @song1 = Song.new("Angels", "Robbie Williams", "angels.jpg", 0)
+  @song1 = Song.new(0, "Angels", "Robbie Williams", "angels.jpg")
 end # end setup
 
 def test_get_song_title
