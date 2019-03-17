@@ -2,16 +2,18 @@ require('pry-byebug')
 require_relative('./models/customer.rb')
 require_relative('./models/film.rb')
 require_relative('./models/ticket.rb')
+require_relative('./models/screening.rb')
 
 Ticket.delete_all
 Customer.delete_all
 Film.delete_all
+Screening.delete_all
 
 # Film functions
 
 film1 = Film.new({'title' => 'The Godfather', 'price' => '5'})
 film2 = Film.new({'title' => 'Alien', 'price' => '8'})
-film3 = Film.new({'title' => 'Being John Malkovich', 'price' => '10'})
+film3 = Film.new({'title' => 'Wonder', 'price' => '10'})
 
 film1.save
 film2.save
@@ -22,7 +24,7 @@ film3.save
 film1.update({'title' => 'When Harry Met Sally', 'price' => film1.price})
 # p Film.list_all
 
-film3.delete
+# film3.delete
 # p Film.list_all
 
 # Customer functions:
@@ -57,10 +59,10 @@ ticket5 = Ticket.new({'customer_id' => customer3.id, 'film_id' => film1.id})
 # ticket3.save
 # ticket4.save
 # ticket5.save
-p ticket1.sell
-p ticket2.sell
-p ticket3.sell
-# p Ticket.list_all
+# p ticket1.sell
+# p ticket2.sell
+# p ticket3.sell
+# # p Ticket.list_all
 
 # p customer3.list_films
 # p customer3.list_films_by_title
@@ -78,5 +80,29 @@ p ticket3.sell
 # p customer1.count_tickets
 # p customer3.count_tickets
 
-binding.pry
-nil
+# Screening functions
+
+screening1 = Screening.new({'film_id' => film1.id, 'time' => '10:00', 'tickets_available' => 200, 'number_of_seats' => 200})
+screening1.save
+screening2 = Screening.new({'film_id' => film1.id, 'time' => '13:00', 'tickets_available' => 20, 'number_of_seats' => 200})
+screening2.save
+screening3 = Screening.new({'film_id' => film2.id, 'time' => '16:00', 'tickets_available' => 2, 'number_of_seats' => 200})
+screening3.save
+screening4 = Screening.new({'film_id' => film3.id, 'time' => '16:00', 'tickets_available' => 200, 'number_of_seats' => 200})
+screening4.save
+screening5 = Screening.new({'film_id' => film2.id, 'time' => '13:00', 'tickets_available' => 20, 'number_of_seats' => 200})
+screening5.save
+screening6 = Screening.new({'film_id' => film3.id, 'time' => '10:00', 'tickets_available' => 2, 'number_of_seats' => 200})
+screening6.save
+screening7 = Screening.new({'film_id' => film3.id, 'time' => '13:00', 'tickets_available' => 200, 'number_of_seats' => 200})
+screening7.save
+screening8 = Screening.new({'film_id' => film2.id, 'time' => '10:00', 'tickets_available' => 20, 'number_of_seats' => 200})
+screening8.save
+screening9 = Screening.new({'film_id' => film1.id, 'time' => '16:00', 'tickets_available' => 2, 'number_of_seats' => 200})
+screening9.save
+
+Screening.display_all_screenings
+# p Screening.list_all_screening_times
+
+# binding.pry
+# nil
