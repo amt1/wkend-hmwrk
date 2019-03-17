@@ -8,6 +8,23 @@ class Ticket
     @customer_id = options['customer_id']
     @film_id = options['film_id']
     @id = options['id'].to_i if options['id']
+    @customer = get_customer
+  end
+
+  def get_customer
+    sql = "SELECT * FROM customers WHERE id = $1;"
+    values = [@customer_id]
+    my_customer = Customer.new(SqlRunner.run(sql,values).first)
+    return my_customer
+  end
+
+  def sell
+    msg = "Sale not completed"
+    if @customer.buy_ticket(@film_id)
+      save
+      msg = "Sale successful, enjoy the film!"
+    end
+    return msg
   end
 
   def save

@@ -1,5 +1,6 @@
 require_relative('../db/sqlrunner.rb')
 require_relative('./customer.rb')
+require_relative('./ticket.rb')
 
 class Film
 
@@ -63,6 +64,14 @@ class Film
     values = [@id]
     customer_list = SqlRunner.run(sql, values)
     return customer_list.map { |customer| customer['name'] }
+  end
+
+  def count_customers
+    customer_count = 0 
+    sql = 'SELECT COUNT(DISTINCT customer_id) FROM tickets WHERE film_id = $1;'
+    values = [@id]
+    customer_count = SqlRunner.run(sql,values).first['count']
+    return customer_count.to_i
   end
 
 end # end class
