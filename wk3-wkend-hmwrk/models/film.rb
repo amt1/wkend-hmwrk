@@ -74,7 +74,7 @@ class Film
     return customer_count.to_i
   end
 
-  def find_bestselling_time
+def find_bestselling_time
 #     sql = 'SELECT films.id, MAX(number_of_seats - tickets_available) tickets_sold, films.title
 # FROM screenings
 # INNER JOIN films
@@ -83,7 +83,6 @@ class Film
 # GROUP BY films.id;'  # stuck with adding screening time to columns to select. Error:
 # #ERROR:  column "screenings.time" must appear in the GROUP BY clause or be used in an aggregate function
 # LINE 1: ...s - tickets_available) tickets_sold, films.title, screenings...
-
 # revisiting earlier approach:
 sql = ' SELECT screenings.*, films.title, number_of_seats - tickets_available AS "tickets_sold"
   FROM screenings
@@ -92,10 +91,9 @@ sql = ' SELECT screenings.*, films.title, number_of_seats - tickets_available AS
   ORDER BY films.title, tickets_sold DESC;'
     values = [@id]
     screenings_hash = SqlRunner.run(sql, values)
-    my_map = screenings_hash.map { |listing|  [listing['time'], listing['title'], listing['tickets_sold'].to_i] }
+    my_map = screenings_hash.map { |listing| [listing['time'],listing['title'],listing['tickets_sold'].to_i]}
     return my_map
   end
-
 def display_bestselling_time
 screenings_array = find_bestselling_time
 soldmore = 0
