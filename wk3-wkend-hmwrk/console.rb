@@ -98,11 +98,17 @@ screening7 = Screening.new({'film_id' => film3.id, 'time' => '13:00', 'tickets_a
 screening7.save
 screening8 = Screening.new({'film_id' => film2.id, 'time' => '10:00', 'tickets_available' => 20, 'number_of_seats' => 200})
 screening8.save
-screening9 = Screening.new({'film_id' => film1.id, 'time' => '16:00', 'tickets_available' => 2, 'number_of_seats' => 200})
+screening9 = Screening.new({'film_id' => film1.id, 'time' => '16:00', 'tickets_available' => 20, 'number_of_seats' => 200})
 screening9.save
 
-Screening.display_all_screenings
+# Screening.display_all_screenings
 # p Screening.list_all_screening_times
+# Screening.display_order_bestselling_times
 
+film1.display_bestselling_time
+
+film2.display_bestselling_time
+
+film3.display_bestselling_time
 # binding.pry
 # nil

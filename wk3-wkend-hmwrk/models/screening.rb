@@ -16,19 +16,18 @@ class Screening
   end
 
   def save
-      sql = "INSERT INTO screenings (film_id, time, tickets_available, number_of_seats) VALUES ($1, $2, $3, $4) RETURNING id;"
+      sql = "INSERT INTO screenings (film_id, time, tickets_available, number_of_seats)
+      VALUES ($1, $2, $3, $4) RETURNING id;"
       values = [@film_id, @time, @tickets_available, @number_of_seats]
       returned_id = SqlRunner.run(sql, values).first['id']
       @id = returned_id.to_i
   end
 
-  # def self.map_my_screenings(screenings_hash)
-  #    screenings_array = screenings_hash.map { |screening| Screening.new(screening)  }
-  #    return screenings_array
-  # end
-
   def self.list_all_screening_times
-          sql = "SELECT screenings.time, films.title  FROM screenings INNER JOIN films ON screenings.film_id = films.id ORDER BY screenings.time, films.title;"
+          sql = "SELECT screenings.time, films.title
+          FROM screenings
+          INNER JOIN films ON screenings.film_id = films.id
+          ORDER BY screenings.time, films.title;"
           screenings_hash = SqlRunner.run(sql)
           my_map = screenings_hash.map { |listing|  [listing['time'], listing['title']] }
       return my_map
@@ -40,6 +39,24 @@ class Screening
       p "#{screening[0]}: #{screening[1]}"
     end
   end
+
+  def self.list_order_bestselling_times
+    sql = 'SELECT screenings.*, films.title, number_of_seats - tickets_available AS "tickets_sold"
+    FROM screenings
+    INNER JOIN films ON screenings.film_id = films.id
+    ORDER BY films.title, tickets_sold DESC;'
+    screenings_hash = SqlRunner.run(sql)
+    my_map = screenings_hash.map { |listing|  [listing['time'], listing['title'], listing['tickets_sold']] }
+    return my_map
+  end
+
+    def self.display_order_bestselling_times
+      screenings_array = list_order_bestselling_times
+      screenings_array.each do |screening|
+        p "#{screening[0]}: #{screening[1]}, Sold: #{screening[2]}"
+      end
+    end
+
 
   def self.delete_all
     sql = "DELETE FROM screenings"
